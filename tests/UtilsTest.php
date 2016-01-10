@@ -11,6 +11,8 @@
 
 namespace PhpString;
 
+use \PhpUnitTest\TestCase as TestCase;
+
 /**
  * Util Class
  *
@@ -20,7 +22,7 @@ namespace PhpString;
  * @since       Class available since release 1.0.x
  * @author      Cory Collier <corycollier@corycollier.com>
  */
-class UtilsTest extends \PHPUnit_Framework_TestCase
+class UtilsTest extends TestCase
 {
     /**
      * Tests the Constructor
@@ -31,15 +33,8 @@ class UtilsTest extends \PHPUnit_Framework_TestCase
         $separators = ['key' => 'value'];
         $sut = new Utils($string, $separators);
 
-        $property = new \ReflectionProperty('\PhpString\Utils', 'string');
-        $property->setAccessible(true);
-        $result = $property->getValue($sut);
-        $this->assertEquals($string, $result);
-
-        $property = new \ReflectionProperty('\PhpString\Utils', 'separators');
-        $property->setAccessible(true);
-        $result = $property->getValue($sut);
-        $this->assertEquals($separators, $result);
+        $this->assertReflectedPropertyValue($string, $sut, 'string');
+        $this->assertReflectedPropertyValue($separators, $sut, 'separators');
     }
 
     /**
@@ -61,12 +56,7 @@ class UtilsTest extends \PHPUnit_Framework_TestCase
 
         $result = $sut->humanify();
         // $this->assertSame($sut, $result);
-
-        $property = new \ReflectionProperty('\PhpString\Utils', 'string');
-        $property->setAccessible(true);
-        $result = $property->getValue($sut);
-
-        $this->assertEquals($expected, $result);
+        $this->assertReflectedPropertyValue($expected, $sut, 'string');
     }
 
     /**
@@ -125,11 +115,7 @@ class UtilsTest extends \PHPUnit_Framework_TestCase
         $result = $sut->dashify();
         // $this->assertSame($sut, $result);
 
-        $property = new \ReflectionProperty('\PhpString\Utils', 'string');
-        $property->setAccessible(true);
-        $result = $property->getValue($sut);
-
-        $this->assertEquals($expected, $result);
+        $this->assertReflectedPropertyValue($expected, $sut, 'string');
     }
 
     /**
@@ -171,11 +157,7 @@ class UtilsTest extends \PHPUnit_Framework_TestCase
         $result = $sut->underscorify();
         // $this->assertSame($sut, $result);
 
-        $property = new \ReflectionProperty('\PhpString\Utils', 'string');
-        $property->setAccessible(true);
-        $result = $property->getValue($sut);
-
-        $this->assertEquals($expected, $result);
+        $this->assertReflectedPropertyValue($expected, $sut, 'string');
     }
 
     /**
@@ -206,12 +188,7 @@ class UtilsTest extends \PHPUnit_Framework_TestCase
     {
         $sut = new Utils($string);
         $sut->lowercasify();
-
-        $property = new \ReflectionProperty('\PhpString\Utils', 'string');
-        $property->setAccessible(true);
-        $result = $property->getValue($sut);
-
-        $this->assertEquals($expected, $result);
+        $this->assertReflectedPropertyValue($expected, $sut, 'string');
     }
 
     /**
@@ -246,12 +223,7 @@ class UtilsTest extends \PHPUnit_Framework_TestCase
     {
         $sut = new Utils($string);
         $sut->uppercasify();
-
-        $property = new \ReflectionProperty('\PhpString\Utils', 'string');
-        $property->setAccessible(true);
-        $result = $property->getValue($sut);
-
-        $this->assertEquals($expected, $result);
+        $this->assertReflectedPropertyValue($expected, $sut, 'string');
     }
 
     /**
@@ -285,11 +257,7 @@ class UtilsTest extends \PHPUnit_Framework_TestCase
     public function test_buildAssociativeArrayOfSeparators($expected, $value, $separators)
     {
         $sut = new Utils('test', $separators);
-
-        $method = new \ReflectionMethod('\PhpString\Utils', 'buildAssociativeArrayOfSeparators');
-        $method->setAccessible(true);
-
-        $result = $method->invoke($sut, $value);
+        $result = $this->getReflectionMethod($sut, 'buildAssociativeArrayOfSeparators')->invoke($sut, $value);
         $this->assertEquals($expected, $result);
     }
 
