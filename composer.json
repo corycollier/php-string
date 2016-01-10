@@ -7,7 +7,8 @@
         "phpmd/phpmd": "^2.3",
         "phploc/phploc": "^2.1",
         "squizlabs/php_codesniffer": "^2.5",
-        "theseer/phpdox": "0.8.1.1"
+        "theseer/phpdox": "0.8.1.1",
+        "satooshi/php-coveralls": "^1.0"
     },
     "license": "MIT",
     "authors": [
@@ -18,6 +19,5 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "satooshi/php-coveralls": "^1.0"
     }
 }
