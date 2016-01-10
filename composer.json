@@ -15,11 +15,19 @@
     "authors": [
         {
             "name": "Cory Collier",
-            "email": "corycollier@corycollier.com"
+            "email": "corycollier@corycollier.com",
+            "role"     : "developer",
+            "homepage" : "http://corycollier.com/"
         }
     ],
     "minimum-stability": "dev",
     "prefer-stable" : true,
     "require": {
+        "corycollier/php-unit-test": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhpString\\" : "src/"
+        }
     }
 }
