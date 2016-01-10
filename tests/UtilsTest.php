@@ -35,6 +35,9 @@ class UtilsTest extends TestCase
 
         $this->assertReflectedPropertyValue($string, $sut, 'string');
         $this->assertReflectedPropertyValue($separators, $sut, 'separators');
+
+        $this->setExpectedException('\PhpString\Exception');
+        $sut = new Utils(array(), $separators);
     }
 
     /**
@@ -248,6 +251,46 @@ class UtilsTest extends TestCase
             ],
         ];
     }
+    /**
+     * Tests PhpString\Utils::propercasify
+     *
+     * @dataProvider providePropercasify
+     */
+    public function testPropercasify($expected, $string, $separators)
+    {
+        $sut = new Utils($string, $separators);
+        $sut->propercasify();
+        $this->assertReflectedPropertyValue($expected, $sut, 'string');
+
+    }
+
+    /**
+     * Data Provider for testPropercasify.
+     *
+     * @return array An array of data to use for testing.
+     */
+    public function providePropercasify()
+    {
+        return [
+            [
+                'expected'   => 'The-String Is Cool',
+                'string'     => 'the-string is cool',
+                'separators' => [' ', '-'],
+            ],
+            [
+                'expected'   => 'The-string Is Cool',
+                'string'     => 'the-string is cool',
+                'separators' => [' '],
+            ],
+            [
+                'expected'   => 'The-string Is_Cool',
+                'string'     => 'the-string is_cool',
+                'separators' => [' ', '_'],
+            ],
+
+        ];
+    }
+
 
     /**
      * Tests PhpString\Utils::buildAssociativeArrayOfSeparators
