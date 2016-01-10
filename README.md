@@ -8,4 +8,10 @@ An object oriented way to deal with strings.
 [![License](https://poser.pugx.org/corycollier/php-string/license)](https://packagist.org/packages/corycollier/php-string)
 [![Coverage Status](https://coveralls.io/repos/corycollier/php-string/badge.svg?branch=master&service=github)](https://coveralls.io/github/corycollier/php-string?branch=master)
 
-
+## Usage
+```
+$string = new PhpString\Utils('the value of the-string', [' ', '-']);
+$string->propercasify();
+$value = $string->getString();
+// expect "The Value Of The-String"
+```

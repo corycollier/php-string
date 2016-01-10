@@ -22,6 +22,8 @@ namespace PhpString;
  */
 class Utils
 {
+    const ERR_ARG_MUST_BE_STRING = 'The first argument to the constructor of Utils must be a string';
+
     /**
      * Internal placeholder for the string value.
      *
@@ -50,11 +52,15 @@ class Utils
      *
      * @param array $separators An array of separating values.
      */
-    public function __construct($string = '', $separators = [])
+    public function __construct($string = '', $separators = null)
     {
+        if (! is_string($string)) {
+            throw new Exception(self::ERR_ARG_MUST_BE_STRING);
+        }
+        $defaults         = [' '];
         $this->string     = $string;
         $this->original   = $string;
-        $this->separators = $separators;
+        $this->separators = $separators ? $separators : $defaults;
     }
 
     /**
@@ -123,6 +129,24 @@ class Utils
     public function uppercasify()
     {
         $this->string = strtoupper($this->string);
+        return $this;
+    }
+
+    /**
+     * Sets the internal string value to a propercased string.
+     *
+     * @return PhpString\Utils Returns $this, for object-chaining.
+     */
+    public function propercasify()
+    {
+        foreach ($this->separators as $separator) {
+            $parts = explode($separator, $this->string);
+            foreach ($parts as $i => $part) {
+                $parts[$i] = ucwords($part);
+            }
+            $this->string = implode($separator, $parts);
+        }
+
         return $this;
     }
 
